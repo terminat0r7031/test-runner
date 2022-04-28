@@ -1,0 +1,10 @@
+on: push
+
+jobs:
+  build:
+    name: Run my self-hosted runner
+    runs-on: [self-hosted, aws-linux-runner]
+
+    steps:
+      - run: |
+          echo "Test self-hosted runner run on aws..."
