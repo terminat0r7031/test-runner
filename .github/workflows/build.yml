@@ -3,7 +3,7 @@ on: push
 jobs:
   build:
     name: Run my self-hosted runner
-    runs-on: [self-hosted, aws-linux-runner]
+    runs-on: [example, default]
 
     steps:
       - run: |
