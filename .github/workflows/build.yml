@@ -8,5 +8,5 @@ jobs:
     steps:
       - run: |
           echo "Test self-hosted runner run on aws..."
-          TAG=${{env.GITHUB_REF_NAME}}
+          TAG=env.GITHUB_REF_NAME
           echo $TAG
