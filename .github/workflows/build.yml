@@ -1,12 +1,30 @@
 on: push
 
+permissions:
+  id-token: write
+  contents: read
+  actions: read
+
+env:
+  REGION: ap-southeast-1
+
 jobs:
   build:
     name: Run my self-hosted runner
     runs-on: ubuntu-latest
 
     steps:
-      - run: |
-          echo "Test self-hosted runner run on aws..."
-          TAG=$GITHUB_REF_NAME
-          echo $TAG
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configuring AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: ${{ secrets.DEV_AWS_ROLE_ARN }}
+          role-duration-seconds: 900
+          aws-region:
+
+      - name: Setting up SSM parameters
+        run: |
+          SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
+          echo $SUPER_SECRET
