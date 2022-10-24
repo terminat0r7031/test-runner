@@ -25,6 +25,11 @@ jobs:
           aws-region: ${{env.REGION}}
 
       - name: Setting up SSM parameters
+        id: ssm_prep
         run: |
           SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
           echo "SUPER_SECRET=$SUPER_SECRET" >> $GITHUB_OUTPUT
+
+      - name: Run scripts
+        run: |
+          echo ${{ steps.ssm_prep.outputs.SUPER_SECRET }}
