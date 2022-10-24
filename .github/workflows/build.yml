@@ -28,4 +28,4 @@ jobs:
         run: |
           SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
           echo "::add-mask::$SUPER_SECRET"
-          echo ::set-output name=SUPER_SECRET::$SUPER_SECRET
+          echo "SUPER_SECRET=$SUPER_SECRET" >> $GITHUB_OUTPUT
