@@ -27,4 +27,5 @@ jobs:
       - name: Setting up SSM parameters
         run: |
           SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
+          echo "::add-mask::$SUPER_SECRET"
           echo $SUPER_SECRET
