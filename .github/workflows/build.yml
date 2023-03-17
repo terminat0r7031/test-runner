@@ -11,26 +11,26 @@ env:
 jobs:
   build:
     name: Run my self-hosted runner
-    runs-on: ubuntu-latest
+    runs-on: ['self-hosted', 'linux', 'x64', 'ubuntu-2204']
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Configuring AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          role-to-assume: ${{ secrets.DEV_AWS_ROLE_ARN }}
-          role-duration-seconds: 900
-          aws-region: ${{env.REGION}}
+      # - name: Configuring AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1-node16
+      #   with:
+      #     role-to-assume: ${{ secrets.DEV_AWS_ROLE_ARN }}
+      #     role-duration-seconds: 900
+      #     aws-region: ${{env.REGION}}
 
-      - name: Setting up SSM parameters
-        id: ssm_prep
-        run: |
-          SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
-          echo ::add-mask::$SUPER_SECRET
-          echo "SUPER_SECRET=$SUPER_SECRET" >> $GITHUB_OUTPUT
+      # - name: Setting up SSM parameters
+      #   id: ssm_prep
+      #   run: |
+      #     SUPER_SECRET=$(aws ssm get-parameter --name "SUPER_SECRET" --output text --query 'Parameter.Value' --with-decryption)
+      #     echo ::add-mask::$SUPER_SECRET
+      #     echo "SUPER_SECRET=$SUPER_SECRET" >> $GITHUB_OUTPUT
 
       - name: Run scripts
         run: |
-          echo ${{ steps.ssm_prep.outputs.SUPER_SECRET }}
+          echo "hello world"
