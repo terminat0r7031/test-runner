@@ -11,7 +11,7 @@ env:
 jobs:
   build:
     name: Run my self-hosted runner
-    runs-on: ['self-hosted', 'linux', 'x64', 'ubuntu-2204', 'micro-instance']
+    runs-on: ['self-hosted', 'linux', 'x64', 'ubuntu-2204', 'medium-instance']
 
     steps:
       - name: Checkout
