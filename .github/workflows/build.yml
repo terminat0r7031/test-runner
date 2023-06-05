@@ -11,7 +11,7 @@ env:
 jobs:
   build:
     name: Run my self-hosted runner
-    runs-on: ['self-hosted', 'windows', 'x64', 'server-2022', 'medium-instance']
+    runs-on: ['windows-latest']
 
     steps:
       - uses: actions/checkout@v3
@@ -20,6 +20,7 @@ jobs:
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module PSScriptAnalyzer -ErrorAction Stop
+          export VITE_SHOPIFY_SECRET_KEY=0bee89b07a248e27c83fc3d5951213c1
       - name: Get list of rules
         shell: pwsh
         run: |
